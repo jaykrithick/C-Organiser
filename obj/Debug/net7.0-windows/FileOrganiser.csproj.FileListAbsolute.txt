@@ -1,0 +1,5 @@
+C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net7.0-windows\FileOrganiser.csproj.AssemblyReference.cache
+C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net7.0-windows\MainWindow.g.cs
+C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net7.0-windows\App.g.cs
+C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net7.0-windows\FileOrganiser_MarkupCompile.cache
+C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net7.0-windows\FileOrganiser_MarkupCompile.lref
