@@ -5,12 +5,13 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="close.png" />
+    <None Remove="icon.ico" />
     <None Remove="Minimise.png" />
-    <None Remove="Minimise.svg" />
     <None Remove="options Horizontal.png" />
   </ItemGroup>
 
@@ -18,10 +19,10 @@
     <Content Include="close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Minimise.png">
+    <Content Include="icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Minimise.svg">
+    <Content Include="Minimise.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="options Horizontal.png">
@@ -31,6 +32,8 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22621.755" />
+    <PackageReference Include="Topshelf" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

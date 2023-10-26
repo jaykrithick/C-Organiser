@@ -22,7 +22,7 @@ namespace FileOrganiser
     public partial class MainWindow : Window
     {
 
-        public string Path;
+        public string Path = @"";
         public bool organiserStatus = false;
 
         public MainWindow()
@@ -38,7 +38,13 @@ namespace FileOrganiser
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            if (organiserStatus) { 
+            App.Current.MainWindow.Hide();
+            }
+            else
+            {
+                App.Current.Shutdown();
+            }
         }
 
         private void SetDownloadsDirBtn_Click(object sender, RoutedEventArgs e)
@@ -48,14 +54,20 @@ namespace FileOrganiser
         }
         private void enableDisableBtn_Click(object sender, RoutedEventArgs e)
         {
-            organiserStatus = !organiserStatus;
-            if (organiserStatus == true)
+            if (Path == null || Path == @"")
             {
-                organiserStatusTxt.Text = "Organiser Enabled";
-            }
-            else
+                App._notifyIcon.ShowBalloonTip(3000, "Error", "Please set a path", System.Windows.Forms.ToolTipIcon.Error);
+            }else
             {
-                organiserStatusTxt.Text = "Organiser Disabled";
+                organiserStatus = !organiserStatus;
+                if (organiserStatus == true)
+                {
+                    organiserStatusTxt.Text = "Organiser Enabled";
+                }
+                else
+                {
+                    organiserStatusTxt.Text = "Organiser Disabled";
+                }
             }
         }
         

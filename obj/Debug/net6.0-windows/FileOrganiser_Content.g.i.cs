@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("close.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("icon.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("minimise.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("minimise.svg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("options%20horizontal.png")]
 
 

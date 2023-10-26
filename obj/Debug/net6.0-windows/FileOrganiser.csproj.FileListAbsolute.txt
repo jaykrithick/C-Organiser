@@ -29,5 +29,9 @@ C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\FlowOr
 C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\close.png
 C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\Minimise.png
 C:\Users\jai\Documents\my projects\FileOrganiser\obj\Debug\net6.0-windows\FileOrganiser_Content.g.cs
-C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\Minimise.svg
 C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\options Horizontal.png
+C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\icon.ico
+C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\System.ServiceProcess.ServiceController.dll
+C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\Topshelf.dll
+C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\TopShelf.ServiceInstaller.dll
+C:\Users\jai\Documents\my projects\FileOrganiser\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.ServiceProcess.ServiceController.dll
