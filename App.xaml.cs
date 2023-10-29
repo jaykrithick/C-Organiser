@@ -26,7 +26,7 @@ namespace FileOrganiser
         protected override void OnStartup(StartupEventArgs e)
         {
 
-            _notifyIcon.Icon = new System.Drawing.Icon("icon.ico");
+            _notifyIcon.Icon = new System.Drawing.Icon("assets/icon.ico");
             _notifyIcon.Visible = true;
             _notifyIcon.Text = "File Organiser";
             _notifyIcon.Click += NotifyIcon_Click;

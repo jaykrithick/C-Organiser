@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,8 +24,7 @@ namespace FileOrganiser
     public partial class MainWindow : Window
     {
 
-        public string Path = @"";
-        public bool organiserStatus = false;
+        public static string Path = @"";
 
         public MainWindow()
         {
@@ -38,7 +39,7 @@ namespace FileOrganiser
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (organiserStatus) { 
+            if (Data.organiserStatus) { 
             App.Current.MainWindow.Hide();
             }
             else
@@ -54,13 +55,14 @@ namespace FileOrganiser
         }
         private void enableDisableBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Path == null || Path == @"")
+            if (PathInput.Text.Length == 0)
             {
+                Console.WriteLine($"Error: {PathInput}");
                 App._notifyIcon.ShowBalloonTip(3000, "Error", "Please set a path", System.Windows.Forms.ToolTipIcon.Error);
             }else
             {
-                organiserStatus = !organiserStatus;
-                if (organiserStatus == true)
+                Data.organiserStatus = !Data.organiserStatus;
+                if (Data.organiserStatus == true)
                 {
                     organiserStatusTxt.Text = "Organiser Enabled";
                 }

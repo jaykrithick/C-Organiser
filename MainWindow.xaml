@@ -32,13 +32,13 @@
                             Background="{x:Null}" Click="CloseBtn_Click"
                             BorderBrush="{x:Null}">
                         <Image Width="auto"
-                            Source="Close.png"/>
+                            Source="assets/Close.png"/>
                     </Button>
                     <Button Name="MinimiseBtn" Margin="8" HorizontalAlignment="Right" Grid.Column="2" 
                             Background="{x:Null}" Click="MinimiseBtn_Click"
                             BorderBrush="{x:Null}">
                         <Image Width="auto"
-                            Source="Minimise.png"/>
+                            Source="assets/Minimise.png"/>
                     </Button>
                 </Grid>
             </Border>
@@ -65,8 +65,9 @@
                 <Button Margin="8" Grid.Column="1" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
+                        Click="openDialog_Click">
                     <Image Name="openDialog" Width="auto"
-                        Source="options Horizontal.png"
+                        Source="assets/options Horizontal.png"
                         ToolTip="Browse"/>
                 </Button>
                 <TextBlock Text="Enter downloads path or browse in file explorer ===>" 
