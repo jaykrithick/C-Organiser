@@ -1,88 +1,129 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
+using System.Threading;
+using Timers = System.Timers;
 
 namespace FileOrganiser
 {
     public class Organizer
     {
 
-        private readonly Timer _timer;
-        private string[] dirsToMk =
+        private static Timers.Timer _timer;
+
+        private static readonly string[] DirsToMk =
         {
-            "installer", "compressed", "pdf", "image", "video", "audio", "text", "office", "other"
+            "installers", "compressed", "pdf", "images", "videos", "audio", "text", "office", "other"
         };
-        string[] posibleExt = 
-        { 
-            ".exe", 
-            ".msi", 
-            ".pdf", 
-            ".jpg", 
-            ".png", 
-            ".mp4", 
-            ".mp3", 
-            ".txt", 
-            ".docx", 
-            ".xlsx", 
-            ".pptx", 
-            ".zip", 
+
+        private static readonly string[] PosibleExt =
+        {
+            ".exe",
+            ".msi",
+            ".pdf",
+            ".jpg",
+            ".png",
+            ".mp4",
+            ".mp3",
+            ".txt",
+            ".docx",
+            ".xlsx",
+            ".pptx",
+            ".zip",
             ".rar",
         };
-        public Dictionary<string, string> dict_dir_files = new Dictionary<string, string>();
 
-        public Organizer()
+
+        public static void MakeDirs()
         {
-            _timer = new Timer(1000) { AutoReset = true};
-            _timer.Elapsed += TimerElapsed;
-            dict_dir_files.Add(".exe" , "installers");
-            dict_dir_files.Add(".msi", "installers");
-            dict_dir_files.Add(".pdf", "pdf");
-            dict_dir_files.Add(".jpg", "images");
-            dict_dir_files.Add(".png", "images");
-            dict_dir_files.Add(".mp4", "videos");
-            dict_dir_files.Add(".mp3", "audio");
-            dict_dir_files.Add(".txt", "text");
-            dict_dir_files.Add(".docx", "office");
-            dict_dir_files.Add(".xlsx", "office");
-            dict_dir_files.Add(".pptx", "office");
-            dict_dir_files.Add(".zip", "compressed");
-            dict_dir_files.Add(".rar", "compressed");
-            
+            var files = Directory.GetFiles(Data.Path);
+            foreach (string dir in DirsToMk)
+            {
+                if (!files.Contains(Data.Path + @"\" + dir))
+                {
+                    Directory.CreateDirectory(Data.Path + @"\" + dir);
+                }
+            }
         }
 
-        private void TimerElapsed(object? sender, ElapsedEventArgs e)
+        public static void Organise(string path)
         {
-            if(Data.organiserStatus)
-            {
-                string[] files = Directory.GetDirectories(MainWindow.Path);
-                foreach (string Dir in dirsToMk)
-                {
-                    if(!files.Contains(MainWindow.Path + @"\" + Dir))
+            MakeDirs();
+            Dictionary<string, string> DictDirFiles = new Dictionary<string, string>();
+            DictDirFiles.Add(".exe", "installers");
+            DictDirFiles.Add(".msi", "installers");
+            DictDirFiles.Add(".pdf", "pdf");
+            DictDirFiles.Add(".jpg", "images");
+            DictDirFiles.Add(".png", "images");
+            DictDirFiles.Add(".mp4", "videos");
+            DictDirFiles.Add(".mp3", "audio");
+            DictDirFiles.Add(".txt", "text");
+            DictDirFiles.Add(".docx", "office");
+            DictDirFiles.Add(".xlsx", "office");
+            DictDirFiles.Add(".pptx", "office");
+            DictDirFiles.Add(".zip", "compressed");
+            DictDirFiles.Add(".rar", "compressed");
+            DictDirFiles.Add(".7z", "compressed");
+            DictDirFiles.Add(".iso", "compressed");
+            DictDirFiles.Add(".gz", "compressed");
+            DictDirFiles.Add(".tar", "compressed");
+            DictDirFiles.Add(".bz2", "compressed");
+            DictDirFiles.Add(".xz", "compressed");
+            DictDirFiles.Add(".tgz", "compressed");
+            DictDirFiles.Add(".svg", "images");
+            DictDirFiles.Add(".gif", "images");
+            DictDirFiles.Add(".bmp", "images");
+            DictDirFiles.Add(".ico", "images");
+            DictDirFiles.Add(".tif", "images");
+            DictDirFiles.Add(".doc", "office");
+            DictDirFiles.Add(".ppt", "office");
+            DictDirFiles.Add(".xls", "office");
+            DictDirFiles.Add(".accda", "office");
+            DictDirFiles.Add(".accdb", "office");
+            DictDirFiles.Add(".one", "office");
+            DictDirFiles.Add(".efc", "office");
+
+            _timer = new Timers.Timer(1000) { AutoReset = true };
+            _timer.Start();
+            _timer.Elapsed += (_, _) => { };
+            while(true){
+                if(Data.OrganiserStatus){
+                    try
                     {
-                        Directory.CreateDirectory(MainWindow.Path + @"\" + Dir);
-                    }
-                }
-                foreach (string file in Directory.GetFiles(MainWindow.Path))
-                {
-                    string ext = Path.GetExtension(file);
-                    if (posibleExt.Contains(ext))
-                    {
-                        string fileName = Path.GetFileName(file);
-                        string dest = MainWindow.Path + @"\"+ dict_dir_files[ext] + fileName;
-                        if (!File.Exists(dest))
+                        string[] files = Directory.GetFiles(path);
+                        
+                        foreach (string file in files)
                         {
-                            File.Move(file, dest);
+                            string ext = Path.GetExtension(file);
+
+                            if (DictDirFiles.TryGetValue(ext, out var dir))
+                            {
+                                string dest = $"{path}\\{dir}";
+
+                                if (!Directory.Exists(dest))
+                                    Directory.CreateDirectory(dest);
+                                if (!File.Exists($"{dest}\\{Path.GetFileName(file)}"))
+                                    try { 
+                                        File.Move(file, $"{dest}\\{Path.GetFileName(file)}", false);
+                                    }
+                                    catch(Exception e) 
+                                    {
+                                        Debug.WriteLine(e);
+                                    }
+                            }
                         }
                     }
+                    catch (Exception exception)
+                    {
+                        App.NotifyIcon.ShowBalloonTip(3000, "Invalid Folder", exception.Message, System.Windows.Forms.ToolTipIcon.Error);
+                        throw;
+                    }
                 }
 
-
-            }
-            
+                
+            };
         }
     }
 }

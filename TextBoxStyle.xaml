@@ -8,7 +8,7 @@
         <Style.Resources>
             <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
                 <VisualBrush.Visual>
-                    <Label Content="Enter path to downloads or Browse=>" Foreground="LightGray" />
+                    <Label Content="Select Folder=>" Foreground="LightGray" />
                 </VisualBrush.Visual>
             </VisualBrush>
         </Style.Resources>

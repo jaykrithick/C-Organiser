@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FileOrganiser"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Flow File Organiser" Height="450" Width="800"
@@ -26,8 +25,12 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock   FontSize="25" Foreground="#84E6FF" Margin="16 16 0 16" Grid.Column="0" Text="Flow " HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <TextBlock   FontSize="25" Foreground="White" Margin="0 16 16 16" Grid.Column="1" Text="Organiser" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock   FontSize="25" Foreground="#84E6FF" Margin="16 16 3 16" Grid.Column="0" Text="Flow" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock   FontSize="25" Foreground="White" Margin="0 16 16 10" Grid.Column="1" Text="Organiser" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Button Name="CloseBtn" Margin="8" HorizontalAlignment="Right" Grid.Column="3" 
                             Background="{x:Null}" Click="CloseBtn_Click"
                             BorderBrush="{x:Null}">
@@ -40,6 +43,7 @@
                         <Image Width="auto"
                             Source="assets/Minimise.png"/>
                     </Button>
+                    <TextBlock  Grid.Row="1" FontSize="16" Foreground="White" Margin="0 0 0 5" Grid.Column="1" Text="File Organiser" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
             <Grid Width="auto" HorizontalAlignment="Center">
@@ -51,37 +55,35 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox
+                <TextBlock Text="browse" Foreground="#fff" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Center"/>
+                <Border
                     Grid.Column="0"
                     Grid.Row="1"
-                    Width="373"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource TBStyle}"
-                    TextAlignment="Left"
-                    VerticalContentAlignment="Center"
-                    Name="PathInput"/>
-
+                    BorderThickness="0 0 0 5"
+                    BorderBrush="#84E6FF"
+                    CornerRadius="5">
+                    <TextBlock
+                        Height="auto"
+                        Width="373"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        TextAlignment="Left"
+                        Name="PathInput"
+                        Foreground="#fff"/>
+                </Border>
                 <Button Margin="8" Grid.Column="1" Grid.Row="1" Background="{x:Null}" BorderBrush="{x:Null}"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
-                        Click="openDialog_Click">
+                        VerticalAlignment="Center"
+                        Click="openDialog_OnClick">
                     <Image Name="openDialog" Width="auto"
-                        Source="assets/options Horizontal.png"
+                        Source="assets/Browse.png"
                         ToolTip="Browse"/>
+                    
                 </Button>
-                <TextBlock Text="Enter downloads path or browse in file explorer ===>" 
+                <TextBlock Text="Select download file explorer ===>" 
                            VerticalAlignment="Bottom" 
                            Foreground="#fff"/>
             </Grid>
-            
-            <!-- Set Downloads Folder -->
-            <Button Background="#151516" Width="auto" BorderBrush="#151516"
-                    HorizontalAlignment="Center" x:Name="SetDownloadsDirBtn"
-                    Margin="16"
-                    Click="SetDownloadsDirBtn_Click">
-                <TextBlock Text="Set Downloads Folder" />
-            </Button>
             
             <Grid Margin="16">
                 <Grid.ColumnDefinitions>
@@ -101,6 +103,11 @@
                 <TextBlock x:Name="organiserStatusTxt" Grid.Column="2" Text="Organiser Disabled" Foreground="White" VerticalAlignment="Center" 
                            HorizontalAlignment="Center" FontSize="20"/>
             </Grid>
+            <Grid>
+                <TextBlock Text="By Jai Krithick 7G (ProXDev)" Foreground="White" VerticalAlignment="Bottom" 
+                           HorizontalAlignment="Right" FontSize="17" Padding="15"/>
+            </Grid>
+            <TextBlock x:Name="logTxt" Foreground="White"/>
         </StackPanel>
     </materialDesign:Card>
 </Window>

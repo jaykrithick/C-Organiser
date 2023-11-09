@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FJ+2k52rXKxw8zfeCkYe+nnc85yDhZg8ZqvzZYBM+0LlNx5Y1D9ibOX/nHYYRM20ZWlzgBYYTSsPk2LC4/MV5Q==",
+  "dgSpecHash": "aHQG8LXA1cfzmORn7SBo0pmaPo032R643Oh04mgyjLjNnSWntcKkb5thakdt7Ac985NLYyUBEb/y+HMIu88Lvw==",
   "success": true,
   "projectFilePath": "C:\\Users\\jai\\Documents\\my projects\\FlowOrganizer\\FileOrganiser.csproj",
   "expectedPackageFiles": [
@@ -30,8 +30,7 @@
     "C:\\Users\\jai\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\jai\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\jai\\.nuget\\packages\\topshelf\\4.3.0\\topshelf.4.3.0.nupkg.sha512",
-    "C:\\Users\\jai\\.nuget\\packages\\topshelf.serviceinstaller\\4.3.0\\topshelf.serviceinstaller.4.3.0.nupkg.sha512",
-    "C:\\Users\\jai\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.28\\microsoft.windows.sdk.net.ref.10.0.19041.28.nupkg.sha512"
+    "C:\\Users\\jai\\.nuget\\packages\\topshelf.serviceinstaller\\4.3.0\\topshelf.serviceinstaller.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

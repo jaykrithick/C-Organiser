@@ -1,52 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
-using Forms = System.Windows.Forms;
+using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace FileOrganiser
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        
+        private static readonly string[] DirsToMk =
+        {
+            "installer", "compressed", "pdf", "image", "video", "audio", "text", "office", "other"
+        };
 
-        public static readonly Forms.NotifyIcon _notifyIcon;
+        static readonly string[] PosibleExt = 
+        { 
+            ".exe", 
+            ".msi", 
+            ".pdf", 
+            ".jpg", 
+            ".png", 
+            ".mp4", 
+            ".mp3", 
+            ".txt", 
+            ".docx", 
+            ".xlsx", 
+            ".pptx", 
+            ".zip", 
+            ".rar",
+        };
+
+        private static Dictionary<string, string> _dictDirFiles = new Dictionary<string, string>();
+        public static Thread _organiserThread;
+
+        public static readonly NotifyIcon NotifyIcon;
         // Constructor
         static App()
         {
-            _notifyIcon = new Forms.NotifyIcon();
-            _notifyIcon.Visible = true;
+            NotifyIcon = new NotifyIcon();
+            NotifyIcon.Visible = true;
         }
-        // Sytem tray icon code on startup
+        // System tray icon code on startup
         protected override void OnStartup(StartupEventArgs e)
         {
 
-            _notifyIcon.Icon = new System.Drawing.Icon("assets/icon.ico");
-            _notifyIcon.Visible = true;
-            _notifyIcon.Text = "File Organiser";
-            _notifyIcon.Click += NotifyIcon_Click;
+            NotifyIcon.Icon = new Icon("assets/icon.ico");
+            NotifyIcon.Visible = true;
+            NotifyIcon.Text = "File Organiser";
+            NotifyIcon.Click += NotifyIcon_Click;
+            _organiserThread = new Thread(() => Organizer.Organise(Data.Path));
             
-
             base.OnStartup(e);
 
         }
 
-        private void NotifyIcon_Click(object? sender, EventArgs e)
+        private static void NotifyIcon_Click(object? sender, EventArgs e)
         {
-                var MW = new MainWindow();
-                App.Current.MainWindow.Show();
+            Current.MainWindow!.Show();
         }
+        
+        
 
         // disposing of the icon on exit
         protected override void OnExit(ExitEventArgs e)
         {
 
-            _notifyIcon.Dispose();
+            NotifyIcon.Dispose();
             base.OnExit(e);
         }
 

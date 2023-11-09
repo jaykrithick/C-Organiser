@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
+using Timers = System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FileOrganiser
 {
@@ -23,13 +12,14 @@ namespace FileOrganiser
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+        
+        
 
-        public static string Path = @"";
 
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void MinimiseBtn_Click(object sender, RoutedEventArgs e)
@@ -39,7 +29,7 @@ namespace FileOrganiser
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (Data.organiserStatus) { 
+            if (Data.OrganiserStatus) { 
             App.Current.MainWindow.Hide();
             }
             else
@@ -50,28 +40,42 @@ namespace FileOrganiser
 
         private void SetDownloadsDirBtn_Click(object sender, RoutedEventArgs e)
         {
-            Path = PathInput.Text;
-            PathInput.Text = Path;
+            Data.Path = PathInput.Text;
+            PathInput.Text = Data.Path;
         }
         private void enableDisableBtn_Click(object sender, RoutedEventArgs e)
         {
             if (PathInput.Text.Length == 0)
             {
-                Console.WriteLine($"Error: {PathInput}");
-                App._notifyIcon.ShowBalloonTip(3000, "Error", "Please set a path", System.Windows.Forms.ToolTipIcon.Error);
+                App.NotifyIcon.ShowBalloonTip(3000, "Invalid Folder", "Please set a path", ToolTipIcon.Error);
             }else
             {
-                Data.organiserStatus = !Data.organiserStatus;
-                if (Data.organiserStatus == true)
-                {
-                    organiserStatusTxt.Text = "Organiser Enabled";
-                }
-                else
-                {
-                    organiserStatusTxt.Text = "Organiser Disabled";
-                }
+                Data.OrganiserStatus = !Data.OrganiserStatus;
+                organiserStatusTxt.Text = Data.OrganiserStatus == true ? "Organiser Enabled" : "Organiser Disabled";
+                Thread backgroundthread = new Thread( () => Organizer.Organise(Data.Path));
+                backgroundthread.Start();
+            }
+
+            
+        }
+
+        private void openDialog_OnClick(object sender, RoutedEventArgs e)
+        {
+            // Create a new FolderBrowserDialog object.
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+            // Set the initial directory for the dialog.
+            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+            // Show the dialog and get the selected folder path.
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                Data.Path = folderBrowserDialog.SelectedPath;
+                PathInput.Text = Data.Path;
             }
         }
-        
+
+
     }
 }
