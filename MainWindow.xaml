@@ -10,7 +10,8 @@
         Background = "{x:Null}"     
         AllowsTransparency="True"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="assets/icon.ico">
     <!-- Window -->
     <materialDesign:Card UniformCornerRadius="15" 
         Background="#1e1e1e" 
@@ -103,10 +104,13 @@
                 <TextBlock x:Name="organiserStatusTxt" Grid.Column="2" Text="Organiser Disabled" Foreground="White" VerticalAlignment="Center" 
                            HorizontalAlignment="Center" FontSize="20"/>
             </Grid>
-            <Grid>
+            <StackPanel>
                 <TextBlock Text="By Jai Krithick 7G (ProXDev)" Foreground="White" VerticalAlignment="Bottom" 
                            HorizontalAlignment="Right" FontSize="17" Padding="15"/>
-            </Grid>
+                <TextBlock Text="v0.1.1.0" Foreground="LightGray" VerticalAlignment="Bottom" 
+                           HorizontalAlignment="Right" FontSize="17" Padding="10"/>
+                
+            </StackPanel>
             <TextBlock x:Name="logTxt" Foreground="White"/>
         </StackPanel>
     </materialDesign:Card>

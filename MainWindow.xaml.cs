@@ -12,9 +12,10 @@ namespace FileOrganiser
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-        
-        
+
+        public static Thread backgroundthread;
+
+
 
 
         public MainWindow()
@@ -24,13 +25,23 @@ namespace FileOrganiser
 
         private void MinimiseBtn_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            
+            if (Data.OrganiserStatus)
+            {
+                App.Current.MainWindow.Hide();
+                App.NotifyIcon.ShowBalloonTip(3000, "Running in Background", "Organizer minimised to system tray", ToolTipIcon.Info);
+            }
+            else
+            {
+                WindowState = WindowState.Minimized;
+            }
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Data.OrganiserStatus) { 
-            App.Current.MainWindow.Hide();
+                App.Current.MainWindow.Hide();
+                App.NotifyIcon.ShowBalloonTip(3000, "Running in Background", "Organizer minimised to system tray", ToolTipIcon.Info);
             }
             else
             {
@@ -52,8 +63,11 @@ namespace FileOrganiser
             {
                 Data.OrganiserStatus = !Data.OrganiserStatus;
                 organiserStatusTxt.Text = Data.OrganiserStatus == true ? "Organiser Enabled" : "Organiser Disabled";
-                Thread backgroundthread = new Thread( () => Organizer.Organise(Data.Path));
-                backgroundthread.Start();
+                backgroundthread = new Thread( () => Organizer.Organise(Data.Path));
+                if (Data.OrganiserStatus)
+                    backgroundthread.Start();
+                else
+                    backgroundthread.Interrupt();
             }
 
             

@@ -85,9 +85,6 @@ namespace FileOrganiser
             DictDirFiles.Add(".one", "office");
             DictDirFiles.Add(".efc", "office");
 
-            _timer = new Timers.Timer(1000) { AutoReset = true };
-            _timer.Start();
-            _timer.Elapsed += (_, _) => { };
             while(true){
                 if(Data.OrganiserStatus){
                     try
@@ -110,7 +107,6 @@ namespace FileOrganiser
                                     }
                                     catch(Exception e) 
                                     {
-                                        Debug.WriteLine(e);
                                     }
                             }
                         }
@@ -122,6 +118,7 @@ namespace FileOrganiser
                     }
                 }
 
+                Thread.Sleep(300);
                 
             };
         }
